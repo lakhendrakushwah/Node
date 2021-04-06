@@ -150,13 +150,13 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-app.use('assets', express.static('/assets'));
+app.use(express.static(path.join(__dirname +'/assets')));
 
 app.set('view engine','ejs');
 app.get("/profile/:name",function(req,res){
     console.log(req.params.name);
     data={email:'test@test.com',address:'Noida',skills:['Node Js', 'C++', 'Java']};
-  res.render('Profile',{name:req.params.name,data:data});
+  res.render('profile',{name:req.params.name,data:data});
 });
 app.get('/',function(req,res){
   console.log('this is Home page')

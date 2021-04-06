@@ -1,12 +1,13 @@
+body {
+    background-color: aquamarine;
+    color: whitesmoke;
+}
 
-        body{
-        background-color: aquamarine;
-        color: whitesmoke;
-    }
-    a{
-        color: rgb(2, 2, 2);
-    }
-    li{
-        display: inline;
-        font-size:x-large;
-    }
+a {
+    color: rgb(2, 2, 2);
+}
+
+li {
+    display: inline;
+    font-size: x-large;
+}
