@@ -146,27 +146,176 @@
 // app.listen(2200);
 
 //#22 Add Staticnsmfkflgjfkgnfk, Files and CSS  .......................................................................................
+// const express = require('express');
+// const path = require('path');
+// const app = express();
+
+// app.use(express.static(path.join(__dirname +'/assets')));
+
+// app.set('view engine','ejs');
+// app.get("/profile/:name",function(req,res){
+//     console.log(req.params.name);
+//     data={email:'test@test.com',address:'Noida',skills:['Node Js', 'C++', 'Java']};
+//   res.render('profile',{name:req.params.name,data:data});
+// });
+// app.get('/',function(req,res){
+//   console.log('this is Home page')
+//     res.render('Home');
+// })
+
+// app.get('/Login',function(req,res){
+//   console.log('this is login page')
+//   res.render('Login');
+// })
+
+
+// app.listen(2300);
+
+// //#24 Make Form $ Quary String  .......................................................................................
+// const express = require('express');
+// const path = require('path');
+// const app = express();
+
+// app.use(express.static(path.join(__dirname +'/assets')));
+
+// app.set('view engine','ejs');
+// app.get("/profile/:name",function(req,res){
+//     console.log(req.params.name);
+//     data={email:'test@test.com',address:'Noida',skills:['Node Js', 'C++', 'Java']};
+//   res.render('profile',{name:req.params.name,data:data});
+// });
+// app.get('/',function(req,res){
+//   console.log('this is Home page')
+//     res.render('Home');
+// })
+
+// app.get('/Login',function(req,res){
+
+//   console.log(req.query);
+//   res.render('Login');
+// })
+// app.listen(2300);
+
+//#25 After #29.............................................................................................................................
+
+
+//mongodb+srv://lakha:<password>@cluster0.sap3o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+// #26 Connect With MongoDB ...........................................................................................................
+// const express = require('express');
+// const app = express();
+// const mongoose = require('mongoose');
+// mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/youtube',
+// {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }).then(() => {
+//   console.log("db connection done")
+// });
+
+
+// #27+28 Define Model for MongoDb + users.js.....................................................................................
+// const express = require('express');
+// const app = express();
+// const mongoose = require('mongoose');
+// const users = require('./users');
+// 27 mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/youtube',
+// mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/youtube?retryWrites=true&w=majority/',
+// {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }).then(() => {
+//   console.log("db connection done")
+// });
+
+// users.find({}, function(err,users){// List laane ka tareeka h ye
+//   if(err) console.log(err);
+//   console.log(users);
+// }) 
+
+// //#29 insert data collection ...........................................................................................................
+// const express = require('express');
+// const app = express();
+// const mongoose = require('mongoose');
+// const users = require('./models/users');
+// mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/youtube?retryWrites=true&w=majority/',
+// {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }).then(() => {
+//   console.log("db connection done")
+// });
+
+// users.find({}, function(err,users){// List laane ka tareeka h ye
+//   if(err) console.log(err);
+//   console.log(users);
+// }) 
+// const data = new users({
+//   _id:new mongoose.Types.ObjectId(),
+//   name: 'Madhu',
+//   email:'Mahu@test.in',
+//   address:'Balknee'
+//   });
+//   data.save().then((result)=>{
+//     console.log(result);
+//   })
+//   .catch(err=>console.log(err)
+//   )
+
+
+//#25 Make Form and Query String.....................................................................................................
 const express = require('express');
+const mongoose = require('mongoose');
+const dev = require('./models/users');
+//mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/youtube?retryWrites=true&w=majority/',
+mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/youtube',
+// mongoose.connect('mongodb+srv://lakha:Lakha@12@cluster0.sap3o.mongodb.net/mySecondDatabase',
+{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }).then(() => {
+  console.log("db connection done")
+});
 const path = require('path');
 const app = express();
+var bodyParser = require('body-parser');
+var encoder = bodyParser.urlencoded();
 
-app.use(express.static(path.join(__dirname +'/assets')));
 
-app.set('view engine','ejs');
-app.get("/profile/:name",function(req,res){
-    console.log(req.params.name);
-    data={email:'test@test.com',address:'Noida',skills:['Node Js', 'C++', 'Java']};
-  res.render('profile',{name:req.params.name,data:data});
+app.use(express.static(path.join(__dirname + '/assets')));
+
+app.set('view engine', 'ejs');
+app.get("/profile/:name", function (req, res) {
+  console.log(req.params.name);
+  data = { email: 'test@test.com', address: 'Noida', skills: ['Node Js', 'C++', 'Java'] };
+  res.render('profile', { name: req.params.name, data: data });
 });
-app.get('/',function(req,res){
+app.get('/', function (req, res) {
   console.log('this is Home page')
-    res.render('Home');
+  res.render('Home');
 })
 
-app.get('/Login',function(req,res){
-  console.log('this is login page')
+app.post('/Login', encoder, function (req, res) {
+
+  console.log(req.body);
+  const lakha = new dev({
+    name:req.body.name,
+    email:req.body.email,
+    address:req.body.address,
+
+  });
+  lakha.save();
+  res.render('Home');
+})
+app.get('/Login', function (req, res) {
+  //console.log(req.query);
   res.render('Login');
-})
+});
+app.listen(2300)
 
 
-app.listen(2300);
+// const data = new users({
+//   _id: new mongoose.Types.ObjectId(),
+//   name: 'Maksds',
+//   email: req.body.email,
+//   address: req.body.passward,
+// });
